@@ -1,0 +1,21 @@
+#top { background: url(images/purple/top-bg.png) repeat-x; }
+	#top-center { background: url(images/purple/top-center-bg.jpg) no-repeat center 5px; }
+		#top-bottom { background: url(images/purple/top-bottom-bg.png) repeat-x bottom center; }
+		
+		#featured a#left-arrow { background: url(images/purple/featured-leftarrow.png) no-repeat; }
+		#featured a#right-arrow { background: url(images/purple/featured-rightarrow.png) no-repeat; }
+		
+		p#slogan { color: #8b7792; }
+		.slide .description, p.description, p.description a { color: #8b7792; }
+		
+		#footer { background: #201822 url(images/purple/footer-main-bg.png) repeat-x; }
+			#footer-content { background: url(images/purple/footer-pattern.png); }
+				#footer-widgets, .footer-widget a, ul.bottom-nav li a, p#copyright { color: #c1aed1; }
+			
+		body, #footer-bottom { background: #201722 url(images/purple/footer-bottom-bg.png) repeat-x; }
+		#footer-bottom { border-top: 1px solid #382f3a; }
+		
+		.service h3.title, a.readmore, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, .widget h4.widgettitle, #breadcrumbs, h3#comments, .reply-container a, .wp-pagenavi a, .wp-pagenavi span { color: #7e5987 !important; }
+		.wp-pagenavi span.pages, .wp-pagenavi span.extend { color: #8c8a8a !important; }
+		
+		#featured h2.title a { color: #fff !important; }
