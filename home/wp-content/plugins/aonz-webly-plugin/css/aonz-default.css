@@ -1,0 +1,40 @@
+#aonz-simplemodal-login-overlay {background-color:#ccc;}
+#aonz-simplemodal-login-container {width:370px;}
+#aonz-simplemodal-login-container .message,
+#aonz-simplemodal-login-container #login_error {background-color: #ffebe8; border:1px solid #c00; margin-bottom:8px; padding:6px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;}
+#aonz-simplemodal-login-container .message {background-color:#ffffe0; border-color:#e6db55;}
+#aonz-simplemodal-login-container form,
+#aonz-simplemodal-login-container div#tutor_register_modal
+ {background:#fff; border:1px solid #e5e5e5; font-weight:normal; margin-left:0 auto; padding:16px; text-align:left; -moz-border-radius:11px; -webkit-border-radius:11px; border-radius:5px; -moz-box-shadow:rgba(153,153,153,1) 0 4px 18px; -webkit-box-shadow:rgba(153,153,153,1) 0 4px 18px; box-shadow:rgba(153,153,153,1) 0 4px 18px;}
+#aonz-simplemodal-login-container form label {color:#777; font-size:13px;}
+#aonz-simplemodal-login-container form p {margin:0;}
+#aonz-simplemodal-login-container form .forgetmenot {font-size:11px; font-weight:normal; float:left; line-height:19px; margin-bottom:0;}
+#aonz-simplemodal-login-container form .submit input {background-color:#257ea8; border:none; border:1px solid; color:#fff; font-weight:bold; padding:3px 10px; font-size:12px; -moz-border-radius:11px; -webkit-border-radius:11px; border-radius:11px; cursor:pointer; text-decoration:none; margin-top:-3px;}
+#aonz-simplemodal-login-container form .submit {float:right;}
+#aonz-simplemodal-login-container form .submit input.simplemodal-close {background-color:#c00;}
+#aonz-simplemodal-login-container .title {color:#257ea8; font-size:18px; padding-bottom:12px;}
+#aonz-simplemodal-login-container .nav {clear:both; color:#888; padding-top:16px; text-align:center;}
+#aonz-simplemodal-login-container .nav a {color:#888;}
+#aonz-simplemodal-login-container .reg_passmail {clear:both; color:#666; font-weight:bold; padding-bottom:16px; text-align:center;}
+#aonz-simplemodal-login-container .user_pass,
+#aonz-simplemodal-login-container .user_login,
+#aonz-simplemodal-login-container .user_email {font-size:24px; width:97%; padding:3px; margin-top:2px; margin-right:6px; margin-bottom:16px; border:1px solid #e5e5e5; background:#fbfbfb;}
+#aonz-simplemodal-login-container .rememberme {vertical-align:middle;}
+.aonz-simplemodal-login-activity {background:url(../img/default/loading.gif) center no-repeat; height:16px; margin-bottom:12px;}
+
+/*
+* fb login button
+*/
+.aonz-fb-login-button {
+	margin-bottom: 10px;
+	width: 326px;
+	height: 61px;
+	display: block;
+	background: transparent
+		url('../img/btn_sign_up_with_facebook_large.png') no-repeat 0px 0px;
+}
+
+.aonz-fb-login-button:hover {
+	background: transparent
+		url('../img/btn_sign_up_with_facebook_large.png') no-repeat 0px -61px;
+}

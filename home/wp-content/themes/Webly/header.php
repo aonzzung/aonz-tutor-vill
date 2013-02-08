@@ -67,6 +67,16 @@
 										</ul> <!-- end ul#nav -->
 									<?php }
 									else echo($primaryNav); ?>
+									
+									<?php 
+									//TODO Aonz Test - Simple Modal Login
+// 									wp_loginout(); 
+									?>
+									<?php 
+									//TODO Aonz Test fb login
+// 									do_action('bp_after_sidebar_login_form');
+									?>
+									
 								</div> <!-- end #menu-content -->	
 							</div> <!-- end #menu-right -->		
 						</div> <!-- end #menu -->
