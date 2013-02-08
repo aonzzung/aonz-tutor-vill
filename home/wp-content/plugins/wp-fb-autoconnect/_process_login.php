@@ -276,6 +276,40 @@ else
     $jfb_log .= "FB: User does not have a profile picture; clearing cached avatar (if present).\n";
 }
 
+//TODO Aonz add birthday and education
+if( $fbuser["birthday"] )
+{
+	update_user_meta($user_login_id, 'birthday', $fbuser["birthday"]);
+}
+else 
+{
+	update_user_meta($user_login_id, 'birthday', '');
+}
+
+$edu_counter=1;
+if($fbuser["education"])
+{
+	$college = null;
+	foreach($fbuser["education"] as $education) {
+		//if($education->type == "College" || $education->type == "Graduate School") {
+			$college = $education;
+			if($college)
+			{
+				update_user_meta($user_login_id, 'education_'.$edu_counter.'_name', $college['school']['name']);
+				if($college['concentration'][0])
+					update_user_meta($user_login_id, 'education_'.$edu_counter.'_field', $college['concentration'][0]['name']);
+				if($college['year'])
+					update_user_meta($user_login_id, 'education_'.$edu_counter.'_year', $college['year']['name']);
+				$edu_counter++;
+			}
+		//}
+	}
+}
+else
+{
+	
+}
+
 //Log them in
 $rememberme = apply_filters('wpfb_rememberme', isset($_POST['rememberme'])&&$_POST['rememberme']);
 wp_set_auth_cookie( $user_login_id, $rememberme );

@@ -98,6 +98,10 @@ function jfb_output_facebook_btn()
     else if( $email_perms )                $scope = 'email';
     else if( $stream_perms )               $scope = 'publish_stream';
     else                                   $scope = '';
+    
+    //TODO Aonz Add Scopes
+    $scope .= ",user_education_history,user_birthday"; 
+    
     $scope = apply_filters('wpfb_extended_permissions', $scope);
     
     //Output the button for the Premium version
@@ -141,7 +145,7 @@ function jfb_output_facebook_instapopup( $callbackName=0 )
     			<?php echo $callbackName?>();
     		  else
 				alert("Sorry, you must be logged in to access this content.");
-    	}); 
+    	}, {scope: 'email,publish_stream,user_education_history,user_birthday'}); //TODO Aonz App Scopes
     }
     //--></script>
     <?php
