@@ -99,6 +99,11 @@
 									<span><?php echo esc_html(get_option('webly_button2_text')); ?></span>
 								</a>
 							<?php } ?>
+							<?php if(is_user_logged_in()) {?>
+								<a href="#job_list" class="button">
+									<span>ดูงานสอน</span>
+								</a>
+							<?php }?>
 						</div> <!-- end #top-buttons -->
 					<?php } ?>
 					

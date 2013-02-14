@@ -76,10 +76,13 @@ class AonzWeblyPlugin
 		// Add Student Registration
 		add_action('wp_footer', array($this, 'student_registration_empty_area'));
 		add_action('wp_footer', array($this, 'student_registration_form_modal'));
+		add_action('wp_footer', array($this, 'job_list_modal'));
 		
 		// Student Registration Callback
 		add_action('wp_ajax_aonz_student_registration', array($this, 'aonz_student_registration_callback'));
 		add_action('wp_ajax_nopriv_aonz_student_registration', array($this, 'aonz_student_registration_callback'));
+		
+		add_action('wp_ajax_get_job_list', array($this, 'get_job_list_callback'));
 	}
 	
 	/**
@@ -88,14 +91,30 @@ class AonzWeblyPlugin
 	function tutor_register_modal()
 	{
 		// Write fb login function
-		jfb_output_facebook_instapopup();
+		jfb_output_facebook_instapopup();//"tutor_register_callback"
 		?>
-			<div id="tutor_register_modal" style="display:none;width: 370px;">
+			<div id="tutor_register_modal" style="display:none;width: 500px;height: 300px;">
+				<div class="title" style="width:70%;margin: 0px auto;font-size: x-large;padding-top: 30px">สมัครติวเตอร์ง่ายๆด้วย Facebook</div>
+				<div style="width:70%;margin: 0px auto;font-size:medium;">ไม่ต้องกรอกแบบฟอร์มให้ยุ่งยาก เพียงคลิ๊กสมัครด้วยบัญชี Facebook เท่านั้น</div>
+				<div style="width:70%;margin: 0px auto;padding-top: 30px">
 					<a href="#" onclick="showInstaPopup();return false;" class="aonz-fb-login-button"></a>
+				</div>
 			</div>
 		<?php 
 	}
 	
+	/**
+	 * Empty area for adding student_register_modal later
+	 */
+	function job_list_modal()
+	{
+		?>
+			<div id="job_list_modal" style="display:none;width: 700px;height: 500px;">
+			<!-- Form will be inserted here -->
+			</div>
+		<?php 	
+	}
+		
 	/**
 	 * Empty area for adding student_register_modal later
 	 */
@@ -116,7 +135,7 @@ class AonzWeblyPlugin
 	function student_registration_form_modal()
 	{
 		?>
-		<div id="student_register_modal_wrapper">
+		<div id="student_register_modal_wrapper" style="display: none">
 			<form class="cmxform" id="student_register_form" method="post" action="" style="width: 700px;height: 500px;overflow-y: scroll;">
 			 <fieldset>
 			   <legend class="title">กรอกแบบฟอร์มเพื่อสมัครเรียน</legend>
@@ -147,6 +166,8 @@ class AonzWeblyPlugin
 					  <option value="6">มหาวิทยาลัย</option>
 					  <option value="7">บุคคลทั่วไป</option>
 				 </select>
+				 <span id="rate_hr" class="required" style="font-weight: bold;font-size: medium;">อัตราค่าเรียน 300 บาท/คน/ชม.</span>
+				 <input type="hidden" id="rate" value="300"/>
 			   </p>	  
 			   <p>
 			     <label for="cstudent_number">จำนวนผู้เรียน</label>
@@ -203,6 +224,40 @@ class AonzWeblyPlugin
 		<?php 
 	}
 	
+	function get_job_list_callback()
+	{
+		global $wpdb,$table_prefix;
+		$jobrows = $wpdb->get_results( "SELECT * FROM ".$table_prefix."aonz_tutor_request" );
+		?>
+		<form style="width: 700px;height: 500px;overflow-y: scroll;">
+			<h3>รายการงานสอน</h3>
+			<table border="1" style="margin: 10px;">
+				<tr>
+					<th>ID</th>
+					<th>ระดับชั้น</th>
+					<th>จำนวนนักเรียน</th>
+					<th>รายละเอียด</th>
+					<th>สถานที่</th>
+					<th>อื่นๆ</th>
+					<th>สถานะ</th>
+				</tr>
+				
+				<?php foreach($jobrows as $jobrow) : ?> 
+				<tr>
+					<td><?php echo $jobrow->id; ?></td>
+					<td><?php echo getStudentLevelByLevelId($jobrow->level); ?></td>
+					<td><?php echo $jobrow->student_number; ?></td>
+					<td><?php echo $jobrow->detail; ?></td>
+					<td><?php echo $jobrow->location; ?></td>
+					<td><?php echo $jobrow->other; ?></td>
+					<td><?php echo $jobrow->assigned_tutor == "0" ? "ว่าง" : "ได้ติวเตอร์แล้ว" ; ?></td>
+				</tr>
+				<?php endforeach; ?>
+			</table>
+			</form><?php 
+			die();
+	}
+	
 	function aonz_student_registration_callback()
 	{
 		global $wpdb,$table_prefix;
@@ -215,6 +270,7 @@ class AonzWeblyPlugin
 		$detail = esc_html($_POST['detail']);
 		$location = esc_html($_POST['location']);
 		$other = esc_html($_POST['other']);
+		$rate = esc_html($_POST['rate']);
 		
 		//Insert to db
 		$result = $wpdb->insert(
@@ -227,7 +283,8 @@ class AonzWeblyPlugin
 						'student_number' => $student_number,
 						'detail' => $detail,
 						'location' => $location,
-						'other' => $other
+						'other' => $other,
+						'hour_rate' => $rate
 		));
 
 		if($result)
@@ -245,4 +302,6 @@ function aonz_init()
 }
 
 add_action('after_setup_theme', 'aonz_init');
+
+require_once("admin_page.php");
 ?>

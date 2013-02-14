@@ -2,7 +2,9 @@ var jq = jQuery;
 
 jq(document).ready(function() {
 
-	// register for register button
+	/*
+	 * Tutor registration
+	 */
 	jq("[href='#tutor_register']").click(function() {
 
 		jq('#tutor_register_modal').modal({
@@ -99,6 +101,7 @@ jq(document).ready(function() {
 							'detail' : jq("#student_register_modal #student_register_form #cdetail").val(),
 							'location' : jq("#student_register_modal #student_register_form #clocation").val(),
 							'other' : jq("#student_register_modal #student_register_form #cother").val(),
+							'rate' : jq("#student_register_modal #student_register_form #rate").val(),
 						}, function(response) {
 				
 							jq("#student_register_modal #student_register_form").hide();
@@ -114,6 +117,36 @@ jq(document).ready(function() {
 				 }
 		});
 		
+		jq("#student_register_empty_area #clevel").change(function () {
+			  var rate = 0;
+			  var level = jq(this).val();
+			  switch(level)
+			  {
+			  	case "1":
+			  		rate=250;
+			  		break;
+			  	case "2":
+			  		rate=300;
+			  		break;
+			  	case "3":
+			  		rate=300;
+			  		break;
+			  	case "4":
+			  		rate=400;
+			  		break;
+			  	case "5":
+			  		rate=400;
+			  		break;
+			  	case "6":
+			  		rate=500;
+			  		break;
+			  	case "7":
+			  		rate=500;	
+			  		break;
+			  }
+			  jq("span#rate_hr").html("อัตราค่าเรียน " + rate + " บาท/คน/ชม.");
+		});
+		
 		jq('#student_register_empty_area #student_register_modal').modal({
 			overlayId : 'aonz-simplemodal-overlay',
 			containerId : 'aonz-simplemodal-container',
@@ -123,5 +156,43 @@ jq(document).ready(function() {
 			zIndex : 10000
 		});
 	});
+	
+	/*
+	 * Tutor registration
+	 */
+	jq("[href='#job_list']").click(function() {
+
+		jq.post(AonzAjax.ajaxurl, {
+			action : 'get_job_list',
+		}, function(response) {
+			jq("#job_list_modal").html(response);
+		});
+		
+		jq('#job_list_modal').modal({
+			overlayId : 'aonz-simplemodal-overlay',
+			containerId : 'aonz-simplemodal-container',
+			opacity : 85,
+			// onShow: SimpleModalLogin.show,
+			position : [ '15%', null ],
+			zIndex : 10000
+		});
+	});
+	
+	/**
+	 * ======================================
+	 * ==================== Admin Side =======
+	 * =======================================
+	 */
+	jq("#publish_button").click(function() {
+		alert("publish");
+	});
 });
 
+
+/**
+ * Callback function for tutor registration
+ */
+function tutor_register_callback()
+{
+	alert("signed up");
+}

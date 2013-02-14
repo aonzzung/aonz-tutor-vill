@@ -291,7 +291,7 @@ if($fbuser["education"])
 {
 	$college = null;
 	foreach($fbuser["education"] as $education) {
-		//if($education->type == "College" || $education->type == "Graduate School") {
+		if($education['type'] == "College" || $education['type'] == "Graduate School") {
 			$college = $education;
 			if($college)
 			{
@@ -302,12 +302,8 @@ if($fbuser["education"])
 					update_user_meta($user_login_id, 'education_'.$edu_counter.'_year', $college['year']['name']);
 				$edu_counter++;
 			}
-		//}
+		}
 	}
-}
-else
-{
-	
 }
 
 //Log them in
