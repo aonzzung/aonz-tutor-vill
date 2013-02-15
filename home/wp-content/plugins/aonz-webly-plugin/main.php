@@ -145,17 +145,17 @@ class AonzWeblyPlugin
 			   <p>
 			     <label for="cname">ชื่อ-นามสกุล ผู้ติดต่อ</label>
 			     <span class="required">*</span>
-			     <input id="cname" name="name" type="text" size="25" class="required" minlength="2" />
+			     <input id="cname" name="name" type="text" size="25" class="required form_input_text" minlength="2" />
 			   </p>
 			   <p>
 			     <label for="cphone">เบอร์โทรศัพท์ที่ติดต่อได้</label>
 			     <span class="required">*</span>
 			     <span style="display:block;">กรอกตัวเลขติดกันทั้งหมด ตัวอย่าง 0821234567</span>
-			     <input id="cphone" name="phone" type="text" size="25"  class="phone" value="" />
+			     <input id="cphone" name="phone" type="text" size="25"  class="phone form_input_text" value="" />
 			   </p>
 			   <p>
 			     <label for="cemail">อีเมล์</label>
-			     <input id="cemail" name="email" size="25" type="text"  class="email" />
+			     <input id="cemail" name="email" size="25" type="text"  class="email form_input_text" />
 			   </p>
 			   <p>
 					
@@ -211,6 +211,8 @@ class AonzWeblyPlugin
 			     <textarea id="cother" name="other" cols="22"></textarea>
 			   </p>
 			   <p>
+			   	<label>ระบบป้องกันความปลอดภัย</label>
+			   	<span class="required" style="display:block;">*โปรดกรอก "ตัวเลข" ที่ทำให้สมการข้างล่างถูกต้อง</span>
 			   	<?php do_action('aonz_study_regis_captcha');?>
 			   </p>
 			   <p>

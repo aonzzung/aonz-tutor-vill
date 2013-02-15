@@ -118,8 +118,9 @@ jq(document).ready(function() {
 							}
 							else
 							{
-								jq("#student_register_modal #student_register_form").hide();
-								jq("#student_register_modal #request_fail").show();
+								//jq("#student_register_modal #student_register_form").hide();
+								//jq("#student_register_modal #request_fail").show();
+								alert("ข้อมูลที่กรอกไม่ถูกต้อง กรุณากรอกแบบฟอร์มใหม่อีกครั้ง ทางทีมงานขออภัยในความไม่สะดวก");
 							}
 						});
 				 }
@@ -203,11 +204,13 @@ function studyChangeHandler()
 	  		break;
 	  }
 	  var study_program = jq("#student_register_modal input[name='study_program']:checked'").val();
+	  var stdsuffix = "";
 	  if(study_program=="en")
 	  {
 		  rate = rate + 100;// Add 100Baht for English Program
+		  stdsuffix = "(หลักสูตรภาษาอังกฤษ)";
 	  }
-	  jq("span#rate_hr").html("อัตราค่าเรียน " + rate + " บาท/คน/ชม.");
+	  jq("span#rate_hr").html("อัตราค่าเรียน " + rate + " บาท/คน/ชม." + " " + stdsuffix);
 }
 
 /**

@@ -42,7 +42,7 @@
 /*
 * Student Register Form
 */
-#student_register_form input[type=text],
+#student_register_form input.form_input_text,
 #student_register_form input[type=submit],
 #student_register_form input[type=button], 
 #student_register_form select,
@@ -65,4 +65,7 @@
 /*Captcha*/
 .cptch_block {
 	direction: ltr;
+	font-size: large;
+	font-weight: bold;
+	color: #ff694f;
 }
