@@ -103,15 +103,22 @@ jq(document).ready(function() {
 							'location' : jq("#student_register_modal #student_register_form #clocation").val(),
 							'other' : jq("#student_register_modal #student_register_form #cother").val(),
 							'rate' : jq("#student_register_modal #student_register_form #rate").val(),
+							'cptch_result' : jq("#student_register_modal #student_register_form input[name='cptch_result']").val(),
+							'cptch_number' : jq("#student_register_modal #student_register_form input[name='cptch_number']").val()
 						}, function(response) {
 				
-							jq("#student_register_modal #student_register_form").hide();
 							if(response=="success")
 							{
+								jq("#student_register_modal #student_register_form").hide();
 								jq("#student_register_modal #request_success").show();
+							}
+							else if(response=="captcha_fail")
+							{
+								alert("ตัวเลขป้องกันความปลอดภัยไม่ถูกต้อง โปรดลองใหม่อีกครั้ง");
 							}
 							else
 							{
+								jq("#student_register_modal #student_register_form").hide();
 								jq("#student_register_modal #request_fail").show();
 							}
 						});

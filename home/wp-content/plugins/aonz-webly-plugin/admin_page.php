@@ -26,6 +26,7 @@ function aonz_webly_admin_page()
 			<th>Email</th>
 			<th>Phone</th>
 			<th>Level</th>
+			<th>Study Program</th>
 			<th>Student Number</th>
 			<th>Detail</th>
 			<th>Location</th>
@@ -44,6 +45,7 @@ function aonz_webly_admin_page()
 			<td><?php echo $jobrow->email; ?></td>
 			<td><?php echo $jobrow->phone; ?></td>
 			<td><?php echo getStudentLevelByLevelId($jobrow->level); ?></td>
+			<td><?php echo $jobrow->study_program; ?></td>
 			<td><?php echo $jobrow->student_number; ?></td>
 			<td><?php echo $jobrow->detail; ?></td>
 			<td><?php echo $jobrow->location; ?></td>
@@ -60,9 +62,8 @@ function aonz_webly_admin_page()
 					 <div class="editable">
 					 	<div>งานสอนที่  #<?php echo $jobrow->id;?></div>
 					 	<div>ระดับชั้น  : <?php echo getStudentLevelByLevelId($jobrow->level); ?></div>
-					 	<div>จำนวนนักเรียน  : <?php echo $jobrow->student_number; ?></div>
 					 	<div>รายละเอียด : <?php echo $jobrow->detail; ?></div>
-					 	<div>อัตราค่าสอน  : <?php echo $jobrow->hour_rate; ?> /คน/ชม.</div>
+					 	<div>ดูรายละเอียดงานสอนเพิ่มเติมได้ที่     www.thetutorhut.com</div>
 					 </div>
 					 <div>
 					 	<?php add_fb_publish_button($jobrow->id); ?>

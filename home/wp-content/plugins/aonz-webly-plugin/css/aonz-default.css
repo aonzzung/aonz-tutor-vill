@@ -61,3 +61,8 @@
 {
 	border-color: #ff694f;
 }
+
+/*Captcha*/
+.cptch_block {
+	direction: ltr;
+}

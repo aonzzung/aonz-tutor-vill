@@ -8,7 +8,6 @@
 */
 ?>
 <?php 
-
 /**
  * class AonzWeblyPlugin
  */
@@ -83,6 +82,10 @@ class AonzWeblyPlugin
 		add_action('wp_ajax_nopriv_aonz_student_registration', array($this, 'aonz_student_registration_callback'));
 		
 		add_action('wp_ajax_get_job_list', array($this, 'get_job_list_callback'));
+		
+		//Captcha
+		add_action('aonz_study_regis_captcha', 'display_aonz_captcha', 10, 1);
+		add_filter('aonz_study_regis_check_captcha', 'cptch_check_custom_form');
 	}
 	
 	/**
@@ -208,6 +211,9 @@ class AonzWeblyPlugin
 			     <textarea id="cother" name="other" cols="22"></textarea>
 			   </p>
 			   <p>
+			   	<?php do_action('aonz_study_regis_captcha');?>
+			   </p>
+			   <p>
 			   	 <input class="submit" type="submit" value="Submit"/>
 			   	 <input type="button" class="simplemodal-close" value="Cancel"/>
 			 	</p>
@@ -227,7 +233,6 @@ class AonzWeblyPlugin
 				</p>
 				<input type="button" class="simplemodal-close" value="Close"/>
 			</form>
-			
 		</div>
 		<?php 
 	}
@@ -235,6 +240,7 @@ class AonzWeblyPlugin
 	function get_job_list_callback()
 	{
 		global $wpdb,$table_prefix;
+		
 		$jobrows = $wpdb->get_results( "SELECT * FROM ".$table_prefix."aonz_tutor_request" );
 		?>
 		<form style="width: 700px;height: 500px;overflow-y: scroll;">
@@ -270,37 +276,45 @@ class AonzWeblyPlugin
 	{
 		global $wpdb,$table_prefix;
 		
-		$name = esc_html($_POST['name']);
-		$email = esc_html($_POST['email']);
-		$phone = intval(esc_html($_POST['phone']));
-		$level = intval(esc_html($_POST['level']));
-		$study_program = esc_html($_POST['study_program']);
-		$student_number = intval(esc_html($_POST['student_number']));
-		$detail = esc_html($_POST['detail']);
-		$location = esc_html($_POST['location']);
-		$other = esc_html($_POST['other']);
-		$rate = esc_html($_POST['rate']);
+		$checkCaptcha = check_aonz_captcha();// apply_filters( 'aonz_study_regis_check_captcha' ); //True if matched
 		
-		//Insert to db
-		$result = $wpdb->insert(
-				$table_prefix.'aonz_tutor_request',
-				array(
-						'name' => $name,
-						'email' => $email,
-						'phone' => $phone,
-						'level' => $level,
-						'study_program' => $study_program,
-						'student_number' => $student_number,
-						'detail' => $detail,
-						'location' => $location,
-						'other' => $other,
-						'hour_rate' => $rate
-		));
-
-		if($result)
-			echo "success";
-		else
-			echo "fail";
+		if($checkCaptcha==true)
+		{
+			$name = esc_html($_POST['name']);
+			$email = esc_html($_POST['email']);
+			$phone = intval(esc_html($_POST['phone']));
+			$level = intval(esc_html($_POST['level']));
+			$study_program = esc_html($_POST['study_program']);
+			$student_number = intval(esc_html($_POST['student_number']));
+			$detail = esc_html($_POST['detail']);
+			$location = esc_html($_POST['location']);
+			$other = esc_html($_POST['other']);
+			$rate = esc_html($_POST['rate']);
+			
+			//Insert to db
+			$result = $wpdb->insert(
+					$table_prefix.'aonz_tutor_request',
+					array(
+							'name' => $name,
+							'email' => $email,
+							'phone' => $phone,
+							'level' => $level,
+							'study_program' => $study_program,
+							'student_number' => $student_number,
+							'detail' => $detail,
+							'location' => $location,
+							'other' => $other,
+							'hour_rate' => $rate
+			));
+			if($result)
+				echo "success";
+			else
+				echo "fail";
+		}
+		else 
+		{
+			echo "captcha_fail";	
+		}	
 		die();
 	}
 }
@@ -319,6 +333,33 @@ function projectivemotion_logout_home($logouturl, $redir)
 {
 	$redir = get_option('siteurl');
 	return $logouturl . '&amp;redirect_to=' . urlencode($redir);
+}
+
+function display_aonz_captcha()
+{
+	echo cptch_custom_form('');
+}
+
+/**
+ * Powered by captcha plugin - based on cptch_check_custom_form method
+ * @return boolean
+ */
+function check_aonz_captcha()
+{
+	global $str_key;
+	$str_key = "bws2012";
+	// If captcha doesn't entered
+	if ( isset( $_REQUEST['cptch_number'] ) && "" ==  $_REQUEST['cptch_number'] ) 
+	{
+		return false;
+	}
+
+	// Check entered captcha
+	if ( isset( $_REQUEST['cptch_result'] ) && isset( $_REQUEST['cptch_number'] ) && 0 == strcasecmp( trim( decode( $_REQUEST['cptch_result'], $str_key ) ), $_REQUEST['cptch_number'] ) ) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 require_once("admin_page.php");
