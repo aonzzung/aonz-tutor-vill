@@ -19,7 +19,7 @@ function aonz_webly_admin_page()
 	?>
 <h3>Tutor Job Requests</h3>
 <form name="form_tutor_job_request" method="post" action="">
-	<table border="1" style="margin: 10px;">
+	<table class="simple_rounded">
 		<tr>
 			<th>ID</th>
 			<th>Name</th>
@@ -199,88 +199,106 @@ function aonz_webly_admin_styles()
 	<style type="text/css">
 	.fb_dialog {z-index: 1900200 !important;}
 	
-	table, caption, tbody, tfoot, thead, tr, th, td {
-		margin:0;
-		padding:0;
-		border:0;
-		outline:0;
-		font-size:100%;
-		vertical-align:baseline;
-		background:transparent;
+	/* Rounded Table for job list */
+	table.simple_rounded a:link {
+		color: #666;
+		font-weight: bold;
+		text-decoration:none;
 	}
-	table {
-		table-layout: fixed; 
-		width: 100%;
-		overflow:hidden;
-		border:1px solid #d3d3d3;
-		background:#fefefe;
-/* 		width:70%; */
-		margin:5% auto 0;
-		-moz-border-radius:5px; /* FF1+ */
-		-webkit-border-radius:5px; /* Saf3-4 */
-		border-radius:5px;
-		-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-		-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+	table.simple_rounded a:visited {
+		color: #999999;
+		font-weight:bold;
+		text-decoration:none;
+	}
+	table.simple_rounded a:active,
+	table.simple_rounded a:hover {
+		color: #bd5a35;
+		text-decoration:underline;
+	}
+	table.simple_rounded {
+		font-family:Arial, Helvetica, sans-serif;
+		color:#666;
+		font-size:12px;
+		text-shadow: 1px 1px 0px #fff;
+		background:#eaebec;
+		margin:20px;
+		border:#ccc 1px solid;
+	
+		-moz-border-radius:3px;
+		-webkit-border-radius:3px;
+		border-radius:3px;
+	
+		-moz-box-shadow: 0 1px 2px #d1d1d1;
+		-webkit-box-shadow: 0 1px 2px #d1d1d1;
+		box-shadow: 0 1px 2px #d1d1d1;
+	}
+	table.simple_rounded th {
+		padding:21px 25px 22px 25px;
+		border-top:1px solid #fafafa;
+		border-bottom:1px solid #e0e0e0;
+	
+		background: #ededed;
+		background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+		background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
+	}
+	table.simple_rounded th:first-child {
+		text-align: left;
+		padding-left:20px;
+	}
+	table.simple_rounded tr:first-child th:first-child {
+		-moz-border-radius-topleft:3px;
+		-webkit-border-top-left-radius:3px;
+		border-top-left-radius:3px;
+	}
+	table.simple_rounded tr:first-child th:last-child {
+		-moz-border-radius-topright:3px;
+		-webkit-border-top-right-radius:3px;
+		border-top-right-radius:3px;
+	}
+	table.simple_rounded tr {
+		text-align: center;
+		padding-left:20px;
+	}
+	table.simple_rounded td:first-child {
+		text-align: left;
+		padding-left:20px;
+		border-left: 0;
+	}
+	table.simple_rounded td {
+		padding:18px;
+		border-top: 1px solid #ffffff;
+		border-bottom:1px solid #e0e0e0;
+		border-left: 1px solid #e0e0e0;
+		
+		background: #fafafa;
+		background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+		background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+	}
+	table.simple_rounded tr.even td {
+		background: #f6f6f6;
+		background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+		background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+	}
+	table.simple_rounded tr:last-child td {
+		border-bottom:0;
+	}
+	table.simple_rounded tr:last-child td:first-child {
+		-moz-border-radius-bottomleft:3px;
+		-webkit-border-bottom-left-radius:3px;
+		border-bottom-left-radius:3px;
+	}
+	table.simple_rounded tr:last-child td:last-child {
+		-moz-border-radius-bottomright:3px;
+		-webkit-border-bottom-right-radius:3px;
+		border-bottom-right-radius:3px;
+	}
+	table.simple_rounded tr:hover td {
+		background: #f2f2f2;
+		background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+		background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
 	}
 	
-	th, td {padding:5px 5px 5px; text-align:center; }
-	
-	th {padding-top:5px; text-shadow: 1px 1px 1px #fff; background:#e8eaeb;}
-	
-	td {border-top:1px solid #e0e0e0; border-right:1px solid #e0e0e0; word-wrap: break-word;}
-	
-	tr.odd-row td {background:#f6f6f6;}
-	
-	td.first, th.first {text-align:left}
-	
-	td.last {border-right:none;}
-	
-	/*
-	Background gradients are completely unnecessary but a neat effect.
-	*/
-	
-	td {
-		background: -moz-linear-gradient(100% 25% 90deg, #fefefe, #f9f9f9);
-		background: -webkit-gradient(linear, 0% 0%, 0% 25%, from(#f9f9f9), to(#fefefe));
-	}
-	
-	tr.odd-row td {
-		background: -moz-linear-gradient(100% 25% 90deg, #f6f6f6, #f1f1f1);
-		background: -webkit-gradient(linear, 0% 0%, 0% 25%, from(#f1f1f1), to(#f6f6f6));
-	}
-	
-	th {
-		background: -moz-linear-gradient(100% 20% 90deg, #e8eaeb, #ededed);
-		background: -webkit-gradient(linear, 0% 0%, 0% 20%, from(#ededed), to(#e8eaeb));
-	}
-	
-	/*
-	I know this is annoying, but we need additional styling so webkit will recognize rounded corners on background elements.
-	Nice write up of this issue: http://www.onenaught.com/posts/266/css-inner-elements-breaking-border-radius
-	
-	And, since we've applied the background colors to td/th element because of IE, Gecko browsers also need it.
-	*/
-	
-	tr:first-child th.first {
-		-moz-border-radius-topleft:5px;
-		-webkit-border-top-left-radius:5px; /* Saf3-4 */
-	}
-	
-	tr:first-child th.last {
-		-moz-border-radius-topright:5px;
-		-webkit-border-top-right-radius:5px; /* Saf3-4 */
-	}
-	
-	tr:last-child td.first {
-		-moz-border-radius-bottomleft:5px;
-		-webkit-border-bottom-left-radius:5px; /* Saf3-4 */
-	}
-	
-	tr:last-child td.last {
-		-moz-border-radius-bottomright:5px;
-		-webkit-border-bottom-right-radius:5px; /* Saf3-4 */
-	}
-	
+	/* Editable Job Detail */
 	div.editable {
     width: 300px;
     height: 200px;
@@ -288,6 +306,7 @@ function aonz_webly_admin_styles()
     padding: 5px;
 	}
 	
+	/* Simple Modal */
 	#aonz-simplemodal-overlay {background-color:#ccc;}
 	#aonz-simplemodal-container {/*width:370px;*/}
 	#aonz-simplemodal-container .message,
