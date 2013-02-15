@@ -247,7 +247,8 @@ class AonzWeblyPlugin
 		?>
 		<form style="width: 700px;height: 500px;overflow-y: scroll;">
 			<h3>รายการงานสอน</h3>
-			<table border="1" style="margin: 10px;">
+			<table class="bordered">
+				<thead>
 				<tr>
 					<th>ID</th>
 					<th>ระดับชั้น</th>
@@ -257,7 +258,7 @@ class AonzWeblyPlugin
 					<th>อื่นๆ</th>
 					<th>สถานะ</th>
 				</tr>
-				
+				</thead>
 				<?php foreach($jobrows as $jobrow) : ?> 
 				<tr>
 					<td><?php echo $jobrow->id; ?></td>
