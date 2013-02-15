@@ -97,6 +97,7 @@ jq(document).ready(function() {
 							'email' : jq("#student_register_modal #student_register_form #cemail").val(),
 							'phone' : jq("#student_register_modal #student_register_form #cphone").val(),
 							'level' : jq("#student_register_modal #student_register_form #clevel").val(),
+							'study_program' : jq("#student_register_modal #student_register_form input[name='study_program']:checked").val(), 
 							'student_number' : jq("#student_register_modal #student_register_form #cstudent_number").val(),
 							'detail' : jq("#student_register_modal #student_register_form #cdetail").val(),
 							'location' : jq("#student_register_modal #student_register_form #clocation").val(),
@@ -118,33 +119,11 @@ jq(document).ready(function() {
 		});
 		
 		jq("#student_register_empty_area #clevel").change(function () {
-			  var rate = 0;
-			  var level = jq(this).val();
-			  switch(level)
-			  {
-			  	case "1":
-			  		rate=250;
-			  		break;
-			  	case "2":
-			  		rate=300;
-			  		break;
-			  	case "3":
-			  		rate=300;
-			  		break;
-			  	case "4":
-			  		rate=400;
-			  		break;
-			  	case "5":
-			  		rate=400;
-			  		break;
-			  	case "6":
-			  		rate=500;
-			  		break;
-			  	case "7":
-			  		rate=500;	
-			  		break;
-			  }
-			  jq("span#rate_hr").html("อัตราค่าเรียน " + rate + " บาท/คน/ชม.");
+			studyChangeHandler();
+		});
+		
+		jq("#student_register_empty_area input[name='study_program']").change(function () {
+			studyChangeHandler();
 		});
 		
 		jq('#student_register_empty_area #student_register_modal').modal({
@@ -183,11 +162,46 @@ jq(document).ready(function() {
 	 * ==================== Admin Side =======
 	 * =======================================
 	 */
-	jq("#publish_button").click(function() {
-		alert("publish");
-	});
+//	jq("#publish_button").click(function() {
+//		alert("publish");
+//	});
 });
 
+function studyChangeHandler()
+{
+	var rate = 0;
+	  var level = jq("#student_register_modal select[name='level']").val();
+	  switch(level)
+	  {
+	  	case "1":
+	  		rate=250;
+	  		break;
+	  	case "2":
+	  		rate=300;
+	  		break;
+	  	case "3":
+	  		rate=300;
+	  		break;
+	  	case "4":
+	  		rate=400;
+	  		break;
+	  	case "5":
+	  		rate=400;
+	  		break;
+	  	case "6":
+	  		rate=500;
+	  		break;
+	  	case "7":
+	  		rate=500;	
+	  		break;
+	  }
+	  var study_program = jq("#student_register_modal input[name='study_program']:checked'").val();
+	  if(study_program=="en")
+	  {
+		  rate = rate + 100;// Add 100Baht for English Program
+	  }
+	  jq("span#rate_hr").html("อัตราค่าเรียน " + rate + " บาท/คน/ชม.");
+}
 
 /**
  * Callback function for tutor registration

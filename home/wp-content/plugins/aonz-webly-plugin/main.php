@@ -155,8 +155,16 @@ class AonzWeblyPlugin
 			     <input id="cemail" name="email" size="25" type="text"  class="email" />
 			   </p>
 			   <p>
+					
+			   </p>
+			   <p>
 			     <label for="clevel">ระดับชั้นผู้เรียน</label>
 			     <span class="required">*</span>
+			     <span style="display:block">
+			     	<span class="required">โปรดเลือกหลักสูตรให้ถูกต้อง</span><br />
+			     	<input type="radio" name="study_program" value="th" checked="checked" />หลักสูตรภาษาไทย<br />
+					<input type="radio" name="study_program" value="en" />หลักสูตรภาษาอังกฤษ
+				 </span>	
 			     <select id="clevel" name="level">
 					  <option value="1">อนุบาล</option>
 					  <option value="2">ประถมต้น</option>
@@ -266,6 +274,7 @@ class AonzWeblyPlugin
 		$email = esc_html($_POST['email']);
 		$phone = intval(esc_html($_POST['phone']));
 		$level = intval(esc_html($_POST['level']));
+		$study_program = esc_html($_POST['study_program']);
 		$student_number = intval(esc_html($_POST['student_number']));
 		$detail = esc_html($_POST['detail']);
 		$location = esc_html($_POST['location']);
@@ -280,6 +289,7 @@ class AonzWeblyPlugin
 						'email' => $email,
 						'phone' => $phone,
 						'level' => $level,
+						'study_program' => $study_program,
 						'student_number' => $student_number,
 						'detail' => $detail,
 						'location' => $location,
@@ -302,6 +312,14 @@ function aonz_init()
 }
 
 add_action('after_setup_theme', 'aonz_init');
+
+/* When logout, redirect to home page*/
+add_filter('logout_url', 'projectivemotion_logout_home', 10, 2);
+function projectivemotion_logout_home($logouturl, $redir)
+{
+	$redir = get_option('siteurl');
+	return $logouturl . '&amp;redirect_to=' . urlencode($redir);
+}
 
 require_once("admin_page.php");
 ?>
