@@ -81,6 +81,12 @@
 							</div> <!-- end #menu-right -->		
 						</div> <!-- end #menu -->
 						
+						<!-- Aonz : FB Login -->
+						<div style="float:right;margin-top:-10px">
+							<span style="padding-left:10px;color:white">สำหรับติวเตอร์ เข้าสู่ระบบ</span>
+							<a href="#" onclick="showInstaPopup();return false;" class="aonz-fb-login-button2"></a>
+						</div>
+				
 						<div class="clear"></div>
 						
 						<?php if ( is_home() && get_option('webly_featured') == 'on' ) get_template_part('includes/featured'); ?>

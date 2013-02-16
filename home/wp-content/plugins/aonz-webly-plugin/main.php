@@ -97,6 +97,9 @@ class AonzWeblyPlugin
 		jfb_output_facebook_instapopup();//"tutor_register_callback"
 		?>
 			<div id="tutor_register_modal" style="display:none;width: 500px;height: 300px;">
+				<p>
+			 		<a href="#" class="simplemodal-close modal-close-button"></a>
+			 	</p>
 				<div class="title" style="width:70%;margin: 0px auto;font-size: x-large;padding-top: 30px">สมัครติวเตอร์ง่ายๆด้วย Facebook</div>
 				<div style="width:70%;margin: 0px auto;font-size:medium;">ไม่ต้องกรอกแบบฟอร์มให้ยุ่งยาก เพียงคลิ๊กสมัครด้วยบัญชี Facebook เท่านั้น</div>
 				<div style="width:70%;margin: 0px auto;padding-top: 30px">
@@ -113,7 +116,7 @@ class AonzWeblyPlugin
 	{
 		?>
 			<div id="job_list_modal" style="display:none;width: 700px;height: 500px;">
-			<!-- Form will be inserted here -->
+				<!-- Form will be inserted here -->
 			</div>
 		<?php 	
 	}
@@ -140,6 +143,9 @@ class AonzWeblyPlugin
 		?>
 		<div id="student_register_modal_wrapper" style="display: none">
 			<form class="cmxform" id="student_register_form" method="post" action="" style="width: 700px;height: 500px;overflow-y: scroll;">
+			 <p>
+			 	<a href="#" class="simplemodal-close modal-close-button"></a>
+			 </p>
 			 <fieldset>
 			   <legend class="title">กรอกแบบฟอร์มเพื่อสมัครเรียน</legend>
 			   <p>
@@ -246,6 +252,9 @@ class AonzWeblyPlugin
 		$jobrows = $wpdb->get_results( "SELECT * FROM ".$table_prefix."aonz_tutor_request" );
 		?>
 		<form style="width: 700px;height: 500px;overflow-y: scroll;">
+			<p>
+		 		<a href="#" class="simplemodal-close modal-close-button"></a>
+			</p>
 			<h3>รายการงานสอน</h3>
 			<table class="bordered">
 				<thead>

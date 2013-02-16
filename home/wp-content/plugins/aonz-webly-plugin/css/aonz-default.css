@@ -21,6 +21,13 @@
 #aonz-simplemodal-container .user_email {font-size:24px; width:97%; padding:3px; margin-top:2px; margin-right:6px; margin-bottom:16px; border:1px solid #e5e5e5; background:#fbfbfb;}
 #aonz-simplemodal-container .rememberme {vertical-align:middle;}
 .aonz-simplemodal-activity {background:url(../img/default/loading.gif) center no-repeat; height:16px; margin-bottom:12px;}
+#aonz-simplemodal-container .modal-close-button {
+	width: 24px;
+	height: 24px;
+	display: block;
+	background: transparent	url('../img/close.png') no-repeat 0px 0px;
+	float:right;
+}
 
 /*
 * fb login button
@@ -37,6 +44,18 @@
 .aonz-fb-login-button:hover {
 	background: transparent
 		url('../img/btn_sign_up_with_facebook_large.png') no-repeat 0px -61px;
+}
+
+/*
+* fb login button 2
+*/
+.aonz-fb-login-button2{
+	width: 200px;
+	height: 50px;
+	display: block;
+	background: transparent
+		url('../img/fb-login-button.png') no-repeat 0px 0px;
+	background-size:200px 50px	
 }
 
 /*
