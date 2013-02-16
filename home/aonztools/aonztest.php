@@ -1,5 +1,5 @@
 <?php
-require('./wp-blog-header.php');
+require('../wp-blog-header.php');
 
 set_time_limit(0);
 
