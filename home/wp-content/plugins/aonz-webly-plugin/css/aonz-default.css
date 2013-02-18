@@ -4,7 +4,8 @@
 #aonz-simplemodal-container #login_error {background-color: #ffebe8; border:1px solid #c00; margin-bottom:8px; padding:6px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;}
 #aonz-simplemodal-container .message {background-color:#ffffe0; border-color:#e6db55;}
 #aonz-simplemodal-container form,
-#aonz-simplemodal-container div#tutor_register_modal
+#aonz-simplemodal-container div#tutor_register_modal,
+#aonz-simplemodal-container div#tutor_list_modal
  {background:#fff; border:1px solid #e5e5e5; font-weight:normal; margin-left:0 auto; padding:16px; text-align:left; -moz-border-radius:11px; -webkit-border-radius:11px; border-radius:5px; -moz-box-shadow:rgba(153,153,153,1) 0 4px 18px; -webkit-box-shadow:rgba(153,153,153,1) 0 4px 18px; box-shadow:rgba(153,153,153,1) 0 4px 18px;}
 #aonz-simplemodal-container form label {color:#777; font-size:13px;}
 #aonz-simplemodal-container form p {margin:0;}
@@ -57,6 +58,44 @@
 		url('../img/fb-login-button.png') no-repeat 0px 0px;
 	background-size:200px 50px	
 }
+
+/*
+* Tutor List Style
+*/
+div.tutorlist {
+  margin: 10px;
+  height: 200px;
+  overflow-y: scroll;
+}
+ 
+div.tutorlist ul {
+  list-style-type: none;
+  width: 450px;
+}
+ 
+div.tutorlist h3 {
+  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+}
+ 
+div.tutorlist li img {
+  float: left;
+  margin: 0 15px 0 0;
+}
+ 
+div.tutorlist li p {
+  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+}
+ 
+div.tutorlist li {
+  padding: 10px;
+  overflow: auto;
+}
+ 
+div.tutorlist li:hover {
+  background: #eee;
+  cursor: pointer;
+}
+
 
 /*
 * Student Register Form

@@ -73,6 +73,7 @@ class AonzWeblyPlugin
 		add_action('wp_footer', array($this, 'tutor_register_modal'));
 		
 		// Add Student Registration
+		add_action('wp_footer', array($this, 'tutor_list_modal'));
 		add_action('wp_footer', array($this, 'student_registration_empty_area'));
 		add_action('wp_footer', array($this, 'student_registration_form_modal'));
 		add_action('wp_footer', array($this, 'job_list_modal'));
@@ -89,6 +90,70 @@ class AonzWeblyPlugin
 	}
 	
 	/**
+	 * Show tutor list
+	 */
+	function tutor_list_modal()
+	{
+		global $wpdb;
+		$uid = $wpdb->get_col("SELECT ID FROM $wpdb->users WHERE user_status = 0");
+		$max_display_num = 20;
+		if(count($uid) < 20)
+		{
+			$max_display_num = count($uid);
+		}
+		$total_tutor_num = count($uid);
+		shuffle($uid);
+		array_rand($uid,$max_display_num);
+		?>
+			<div id="tutor_list_modal" style="display:none;width: 500px;height: 300px;">
+				<p>
+			 		<a href="#" class="simplemodal-close modal-close-button"></a>
+			 	</p>
+			 	<div class="title">ติวเตอร์ส่วนหนึ่งของเรา จากล่าสุดทั้งหมด <?php echo $total_tutor_num;?> คน</div>
+			 	<p style="width:70%;margin: 0px auto;padding-top: 5px;font-size:medium;">
+			 		<div class="tutorlist">
+						<ul>
+			 	<?php
+					for($counter = 0; $counter < $max_display_num; $counter++) {
+						
+						$userID = $uid[$counter];
+						
+						//Skip list
+						if($userID == "1")
+						{
+							$counter++;
+							continue;
+						}
+												
+						//Get user meta data
+						$single = true;
+						$fb_avatar_thumb = get_user_meta($userID, "facebook_avatar_thumb", $single);
+						$nickname = get_user_meta($userID, "nickname", $single);
+						$education_1_name = get_user_meta($userID, "education_1_name", $single);
+						$education_1_field = get_user_meta($userID, "education_1_field", $single);
+						?>
+						
+						    <li>
+						      <img alt="" src="<?php echo $fb_avatar_thumb;?>" class="" height="50px" width="50px">
+						      <h3>ติวเตอร์ <?php echo $nickname;?></h3>
+						      <p>
+						      	<?php echo $education_1_field; ?><br />
+						      	<?php echo $education_1_name; ?>
+						      </p>
+						    </li>
+							
+						<?php
+					}
+					unset($uid,$userID);
+				?>
+						</ul>
+					</div> 	
+				</p>	
+			</div>
+		<?php 
+	}
+		
+	/**
 	 * This function will exploit wp-fb-autoconnect plugin
 	 */
 	function tutor_register_modal()
@@ -101,9 +166,14 @@ class AonzWeblyPlugin
 			 		<a href="#" class="simplemodal-close modal-close-button"></a>
 			 	</p>
 				<div class="title" style="width:70%;margin: 0px auto;font-size: x-large;padding-top: 30px">สมัครติวเตอร์ง่ายๆด้วย Facebook</div>
-				<div style="width:70%;margin: 0px auto;font-size:medium;">ไม่ต้องกรอกแบบฟอร์มให้ยุ่งยาก เพียงคลิ๊กสมัครด้วยบัญชี Facebook เท่านั้น</div>
+				<div style="width:70%;margin: 0px auto;font-size:medium;">กรอกข้อมูล แล้วคลิ๊ก  <b>Sign Up with Facebook</b></div>
+				<p style="width:70%;margin: 0px auto;padding-top: 30px;font-size:medium;">
+			    	<label for="cnickname">ชื่อเล่น</label>
+			     	<span class="required">*</span>
+			     	<input id="cnickname" name="nickname" type="text" size="25" class="required form_input_text" minlength="2" />
+			   	</p>
 				<div style="width:70%;margin: 0px auto;padding-top: 30px">
-					<a href="#" onclick="showInstaPopup();return false;" class="aonz-fb-login-button"></a>
+					<a id="signupwithfb_button" href="#" class="aonz-fb-login-button"></a>
 				</div>
 			</div>
 		<?php 

@@ -94,7 +94,10 @@
 					</div> <!-- end #header -->
 					
 					<?php if ( is_home() && get_option('webly_buttons') == 'on' ) { ?>
-						<div id="top-buttons" class="clearfix">
+						<div id="top-buttons" class="clearfix" style="left:10%;/*Aonz - Add more button*/">
+							<a href="#tutor_list" class="button">
+								<span>ติวเตอร์ของเรา</span>
+							</a>
 							<?php if (get_option('webly_button1_text') <> '' ) { ?>
 								<a href="<?php echo esc_url(get_option('webly_button1_url')); ?>" class="button">
 									<span><?php echo esc_html(get_option('webly_button1_text')); ?></span>

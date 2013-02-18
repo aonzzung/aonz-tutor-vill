@@ -2,6 +2,35 @@ var jq = jQuery;
 
 jq(document).ready(function() {
 
+	jq("[href='#tutor_list']").click(function() {
+
+		jq('#tutor_list_modal').modal({
+			overlayId : 'aonz-simplemodal-overlay',
+			containerId : 'aonz-simplemodal-container',
+			opacity : 85,
+			// onShow: SimpleModalLogin.show,
+			position : [ '15%', null ],
+			zIndex : 10000
+		});
+	});
+	
+	/* Signup with facebook button*/
+	jq("#signupwithfb_button").click(function() {
+		var tutornickname = jq.trim(jq("#cnickname").val());
+		if(tutornickname != null && tutornickname.length > 0)
+		{
+			//add nickname hidden field to fb form
+			jq("#wp-fb-ac-fm").append('<input type="hidden" name="nickname" value="'+tutornickname+'" />');
+			showInstaPopup();
+			//return false;
+		}
+		else
+		{
+			alert("กรุณากรอกชื่อเล่น");
+			return false;
+		}
+	});
+	
 	/*
 	 * Tutor registration
 	 */

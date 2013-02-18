@@ -276,6 +276,11 @@ else
     $jfb_log .= "FB: User does not have a profile picture; clearing cached avatar (if present).\n";
 }
 
+//TODO Aonz add a user-entered nickname
+if( $_POST["nickname"] )
+{
+	update_user_meta($user_login_id, 'nickname', trim($_POST["nickname"]));
+}
 //TODO Aonz add birthday and education
 if( $fbuser["birthday"] )
 {
