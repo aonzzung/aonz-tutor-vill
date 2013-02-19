@@ -12,7 +12,7 @@
 		$featured_cat = get_option('webly_feat_cat');
 		$featured_num = get_option('webly_featured_num');
 		
-		if (get_option('webly_use_pages') == 'false') query_posts("showposts=$featured_num&cat=".get_catId($featured_cat));
+		if (get_option('webly_use_pages') == 'false') query_posts("showposts=$featured_num&cat=".get_catId($featured_cat)."&orderby=date&order=asc"); //TODO onz Add orderby and order
 		else { 
 			global $pages_number;
 			
