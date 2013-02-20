@@ -191,7 +191,15 @@ class AonzWeblyPlugin
 	{
 		?>
 			<div id="job_list_modal" style="display:none;width: 700px;height: 500px;">
-				<!-- Form will be inserted here -->
+				<form style="width: 700px;height: 500px;overflow-y: scroll;">
+					<img id="gifloader" alt="loading" src="<?php echo $this->plugin_url."/img/ajaxloader.gif"?>">
+					<p>
+				 		<a href="#" class="simplemodal-close modal-close-button"></a>
+					</p>					
+					<div id="job_list_content">
+					<!-- Form will be inserted here -->
+					</div>
+				</form>
 			</div>
 		<?php 	
 	}
@@ -326,12 +334,8 @@ class AonzWeblyPlugin
 		
 		$jobrows = $wpdb->get_results( "SELECT * FROM ".$table_prefix."aonz_tutor_request" );
 		?>
-		<form style="width: 700px;height: 500px;overflow-y: scroll;">
-			<p>
-		 		<a href="#" class="simplemodal-close modal-close-button"></a>
-			</p>
 			<h3>รายการงานสอน</h3>
-			<table class="bordered">
+			<table class="bordered" style="color:#464646;font-family:tahoma;font-size:13px">
 				<thead>
 				<tr>
 					<th>ID</th>
@@ -344,7 +348,7 @@ class AonzWeblyPlugin
 				</tr>
 				</thead>
 				<?php foreach($jobrows as $jobrow) : ?> 
-				<tr>
+				<tr class="<?php echo $jobrow->assigned_tutor != "0" ? "disable" : "enable" ; ?>">
 					<td><?php echo $jobrow->id; ?></td>
 					<td><?php echo getStudentLevelByLevelId($jobrow->level); ?></td>
 					<td><?php echo $jobrow->student_number; ?></td>
@@ -355,7 +359,7 @@ class AonzWeblyPlugin
 				</tr>
 				<?php endforeach; ?>
 			</table>
-			</form><?php 
+			<?php 
 			die();
 	}
 	

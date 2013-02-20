@@ -67,7 +67,7 @@ $options = array (
 				   "type" => "select",
 				   "std" => "Default",
 				   "desc" => "This theme comes with multiple color schemes. You can switch between these color schemes at any time using this dropdown menu. Once you click save your theme will be updated with the new color scheme automatically.",
-				   "options" => array("Default", "Black", "Green", "Purple")),
+				   "options" => array("Default", "Black", "Green", "Purple", "BlueSky")), /*TODO Aonz : Added Blue Sky*/
 
 			array( "name" => "Blog Style post format",
                    "id" => $shortname."_blog_style",

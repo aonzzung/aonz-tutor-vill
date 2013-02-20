@@ -52,7 +52,21 @@ function aonz_webly_admin_page()
 			<td><?php echo $jobrow->other; ?></td>
 			<td><?php echo $jobrow->hour_rate; ?></td>
 			<td><?php echo $jobrow->fee; ?></td>
-			<td><?php echo $jobrow->assigned_tutor; ?></td>
+			<td>
+				<p><?php echo $jobrow->assigned_tutor; ?></p>
+				<form id="form_assign_tutor_<?php echo $jobrow->id; ?>" method="post" action="">
+				<fieldset>
+					<legend>Enter tutor phone no.</legend>
+					<p>
+						<input type="text" name="tutor_phonenum">
+						<input type="hidden" name="assign_req_id" value="<?php echo $jobrow->id; ?>">
+					</p>
+					<p>
+						<input type="submit" value="Assign">
+					</p>
+				</fieldset>
+				</form>
+			</td>
 			<td><?php echo intval($jobrow->published)==1?"Yes":"No"; ?></td>
 			<td><input type="button" value="Open" onclick="openPublishPanel(<?php echo $jobrow->id; ?>);"/></td>
 		</tr>
@@ -332,5 +346,20 @@ function aonz_webly_admin_styles()
 	.aonz-simplemodal-activity {background:url(../img/default/loading.gif) center no-repeat; height:16px; margin-bottom:12px;}
 </style>
 	<?php 
+}
+
+/**
+ * ================================
+ * Form Submit Process
+ * ================================
+ */
+global $wpdb;
+if( isset($_POST['assign_req_id']))
+{
+	$wpdb->update($table_prefix."aonz_tutor_request", 
+		array(
+		'assigned_tutor' => $_POST['tutor_phonenum'],	// tutor phone num
+		),
+		array( 'ID' => $_POST['assign_req_id'] ));
 }
 ?>

@@ -199,18 +199,24 @@ jq(document).ready(function() {
 	 */
 	jq("[href='#job_list']").click(function() {
 
+		jq('#job_list_modal').modal({
+			overlayId : 'aonz-simplemodal-overlay',
+			containerId : 'aonz-simplemodal-container',
+			opacity : 85,
+			// onShow: SimpleModalLogin.show,
+			position : [ '15%', null ],
+			zIndex : 10000
+		});
+		
+		jq("#job_list_modal #gifloader").show();
+		jq("#job_list_modal .modal-close-button").hide();
+		
 		jq.post(AonzAjax.ajaxurl, {
 			action : 'get_job_list',
 		}, function(response) {
-			jq("#job_list_modal").html(response);
-			jq('#job_list_modal').modal({
-				overlayId : 'aonz-simplemodal-overlay',
-				containerId : 'aonz-simplemodal-container',
-				opacity : 85,
-				// onShow: SimpleModalLogin.show,
-				position : [ '15%', null ],
-				zIndex : 10000
-			});
+			jq("#gifloader").hide();
+			jq("#job_list_modal #job_list_content").html(response);
+			jq("#job_list_modal .modal-close-button").show();
 		});
 	});
 	

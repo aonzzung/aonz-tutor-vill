@@ -215,3 +215,9 @@ table.bordered {
     -webkit-border-radius: 0 0 6px 0;
     border-radius: 0 0 6px 0;
 }
+
+tr.disable
+{
+	color:grey;
+	text-decoration: line-through;
+}

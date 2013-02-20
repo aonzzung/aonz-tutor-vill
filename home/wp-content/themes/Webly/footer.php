@@ -22,7 +22,7 @@
 				else echo($footerNav); 
 			?>
 			
-			<p id="copyright"><?php esc_html_e('Designed by ','Webly'); ?> <a href="http://www.elegantthemes.com" title="Premium WordPress Themes">Elegant WordPress Themes</a> | <?php esc_html_e('Powered by ','Webly'); ?> <a href="http://www.wordpress.org">WordPress</a></p>
+			<p id="copyright"><a href="http://www.thetutorhut.com">ทีมงานติวเตอร์ เดอะติวเตอร์ฮัท TheTutorHut.com</a></p>
 		</div> <!-- end .container -->
 	</div> <!-- end #footer-bottom -->
 			
