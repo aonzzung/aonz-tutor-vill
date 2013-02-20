@@ -16,17 +16,38 @@ jq(document).ready(function() {
 	
 	/* Signup with facebook button*/
 	jq("#signupwithfb_button").click(function() {
+		var isValid = true;
 		var tutornickname = jq.trim(jq("#cnickname").val());
 		if(tutornickname != null && tutornickname.length > 0)
 		{
 			//add nickname hidden field to fb form
 			jq("#wp-fb-ac-fm").append('<input type="hidden" name="nickname" value="'+tutornickname+'" />');
-			showInstaPopup();
 			//return false;
 		}
 		else
 		{
+			isValid = false;
 			alert("กรุณากรอกชื่อเล่น");
+		}
+		var tutorphonenum = jq.trim(jq("#cphonenum").val());
+		if(tutorphonenum != null && tutorphonenum.length > 0)
+		{
+			//add nickname hidden field to fb form
+			jq("#wp-fb-ac-fm").append('<input type="hidden" name="phonenum" value="'+tutorphonenum+'" />');
+			//return false;
+		}
+		else
+		{
+			isValid = false;
+			alert("กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง");
+		}
+		
+		if(isValid)
+		{
+			showInstaPopup();
+		}
+		else
+		{
 			return false;
 		}
 	});

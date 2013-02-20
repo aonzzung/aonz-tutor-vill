@@ -167,10 +167,15 @@ class AonzWeblyPlugin
 			 	</p>
 				<div class="title" style="width:70%;margin: 0px auto;font-size: x-large;padding-top: 30px">สมัครติวเตอร์ง่ายๆด้วย Facebook</div>
 				<div style="width:70%;margin: 0px auto;font-size:medium;">กรอกข้อมูล แล้วคลิ๊ก  <b>Sign Up with Facebook</b></div>
-				<p style="width:70%;margin: 0px auto;padding-top: 30px;font-size:medium;">
+				<p style="width:70%;margin: 0px auto;padding-top: 10px;font-size:medium;">
 			    	<label for="cnickname">ชื่อเล่น</label>
 			     	<span class="required">*</span>
 			     	<input id="cnickname" name="nickname" type="text" size="25" class="required form_input_text" minlength="2" />
+			   	</p>
+			   	<p style="width:70%;margin: 0px auto;padding-top: 0px;font-size:medium;">
+			    	<label for="cphonenum">เบอร์โทรศัพท์</label>
+			     	<span class="required">*</span>
+			     	<input id="cphonenum" name="phonenum" type="text" size="25" class="required form_input_text" minlength="9" />
 			   	</p>
 				<div style="width:70%;margin: 0px auto;padding-top: 30px">
 					<a id="signupwithfb_button" href="#" class="aonz-fb-login-button"></a>

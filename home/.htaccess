@@ -7,6 +7,14 @@ RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
+
+# Aonz Rewrite Rules
+
+# Prevent accessing wp-login.php and redirect to homepage
+RewriteRule ^wp-login\.php$ /index.php [R,NC,L]
+
+# END! Aonz Rewrite Rules
+
 </IfModule>
 
 # END WordPress

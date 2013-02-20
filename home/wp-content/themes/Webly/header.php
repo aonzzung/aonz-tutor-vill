@@ -82,9 +82,9 @@
 						</div> <!-- end #menu -->
 						
 						<!-- Aonz : FB Login -->
-						<div style="float:right;margin-top:-10px">
-							<span style="padding-left:10px;color:white">สำหรับติวเตอร์ เข้าสู่ระบบ</span>
-							<a href="#" onclick="showInstaPopup();return false;" class="aonz-fb-login-button2"></a>
+						<div style="clear:right;">
+							<a href="#" onclick="showInstaPopup();return false;" class="aonz-fb-login-button2" style="float:right"></a>
+							<span style="padding-top:15px;color:white;float:right;text-shadow: none;font-size: 15px">สำหรับติวเตอร์ ล๊อกอินเพื่อเข้าสู่ระบบ</span>
 						</div>
 				
 						<div class="clear"></div>
