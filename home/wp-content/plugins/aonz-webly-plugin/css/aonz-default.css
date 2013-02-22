@@ -10,7 +10,6 @@
 #aonz-simplemodal-container #login_error {background-color: #ffebe8; border:1px solid #c00; margin-bottom:8px; padding:6px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;}
 #aonz-simplemodal-container .message {background-color:#ffffe0; border-color:#e6db55;}
 #aonz-simplemodal-container form,
-#aonz-simplemodal-container div#tutor_register_modal,
 #aonz-simplemodal-container div#tutor_list_modal
  {background:#fff; border:1px solid #e5e5e5; font-weight:normal; margin-left:0 auto; padding:16px; text-align:left; -moz-border-radius:11px; -webkit-border-radius:11px; border-radius:5px; -moz-box-shadow:rgba(153,153,153,1) 0 4px 18px; -webkit-box-shadow:rgba(153,153,153,1) 0 4px 18px; box-shadow:rgba(153,153,153,1) 0 4px 18px;}
 #aonz-simplemodal-container form label {color:#777; font-size:13px;}
@@ -106,22 +105,20 @@ div.tutorlist li:hover {
 /*
 * Student Register Form
 */
-#student_register_form input.form_input_text,
-#student_register_form input[type=submit],
-#student_register_form input[type=button], 
-#student_register_form select,
-#student_register_form textarea
+.aonz_form_style input.form_input_text,
+.aonz_form_style select,
+.aonz_form_style textarea
 { width: 40%; display: block !important; padding: 5px; }
-#student_register_form label{ font-weight: bold; font-size: medium !important;}
-#student_register_form label.error{ font-weight: bold; font-size: small !important;display: block;color:#ff694f;}
-#student_register_form span.required{color:#ff694f;}
-#student_register_form textarea#comment { width: 91%; }
-#student_register_form input[type=submit],
-#student_register_form input[type=button] 
-{float:left;}
-#student_register_form input.error, 
-#student_register_form select.error,
-#student_register_form textarea.error
+.aonz_form_style label{ font-weight: bold; font-size: medium !important;}
+.aonz_form_style label.error{ font-weight: bold; font-size: small !important;display: block;color:#ff694f !important;}
+.aonz_form_style span.required{color:#ff694f;}
+.aonz_form_style textarea#comment { width: 91%; }
+.aonz_form_style input[type=submit],
+.aonz_form_style input[type=button] 
+{width:300px !important;padding: 10px!important;}
+.aonz_form_style input.error, 
+.aonz_form_style select.error,
+.aonz_form_style textarea.error
 {
 	border-color: #ff694f;
 }

@@ -74,7 +74,6 @@ class AonzWeblyPlugin
 		
 		// Add Student Registration
 		add_action('wp_footer', array($this, 'tutor_list_modal'));
-		add_action('wp_footer', array($this, 'student_registration_empty_area'));
 		add_action('wp_footer', array($this, 'student_registration_form_modal'));
 		add_action('wp_footer', array($this, 'job_list_modal'));
 		
@@ -124,13 +123,18 @@ class AonzWeblyPlugin
 							$counter++;
 							continue;
 						}
-												
+
 						//Get user meta data
 						$single = true;
 						$fb_avatar_thumb = get_user_meta($userID, "facebook_avatar_thumb", $single);
 						$nickname = get_user_meta($userID, "nickname", $single);
 						$education_1_name = get_user_meta($userID, "education_1_name", $single);
 						$education_1_field = get_user_meta($userID, "education_1_field", $single);
+						if($education_1_name == '')
+						{
+							$counter++;
+							continue;
+						}
 						?>
 						
 						    <li>
@@ -161,31 +165,33 @@ class AonzWeblyPlugin
 		// Write fb login function
 		jfb_output_facebook_instapopup();//"tutor_register_callback"
 		?>
-			<div id="tutor_register_modal" style="display:none;width: 500px;height: 300px;">
+			<form id="tutor_registration_modal" class="aonz_form_style" method="post" action="" style="display:none;width: 500px;height: 400px;">
 				<p>
 			 		<a href="#" class="simplemodal-close modal-close-button"></a>
 			 	</p>
 				<div class="title" style="width:70%;margin: 0px auto;font-size: x-large;padding-top: 30px">สมัครติวเตอร์ง่ายๆด้วย Facebook</div>
-				<div style="width:70%;margin: 0px auto;font-size:medium;">กรอกข้อมูล แล้วคลิ๊ก  <b>Sign Up with Facebook</b></div>
-				<p style="width:70%;margin: 0px auto;padding-top: 10px;font-size:medium;">
-			    	<label for="cnickname">ชื่อเล่น</label>
-			     	<span class="required">*</span>
-			     	<input id="cnickname" name="nickname" type="text" size="25" class="required form_input_text" minlength="2" />
-			   	</p>
-			   	<p style="width:70%;margin: 0px auto;padding-top: 0px;font-size:medium;">
-			    	<label for="cphonenum">เบอร์โทรศัพท์</label>
-			     	<span class="required">*</span>
-			     	<input id="cphonenum" name="phonenum" type="text" size="25" class="required form_input_text" minlength="9" />
-			   	</p>
-				<div style="width:70%;margin: 0px auto;padding-top: 30px">
-					<a id="signupwithfb_button" href="#" class="aonz-fb-login-button"></a>
-				</div>
-			</div>
+				<fieldset style="width:70%;margin: 0px auto;margin-top: 20px;">
+				   	<legend class="title">กรอกข้อมูลให้ถูกต้อง แล้วคลิ๊ก  <br />Sign Up with Facebook</legend>
+					<p>
+				    	<label for="cnickname">ชื่อเล่น</label>
+				     	<span class="required">*</span>
+				     	<input id="cnickname" name="nickname" type="text" size="25" class="required form_input_text" minlength="2" />
+				   	</p>
+				   	<p>
+				    	<label for="cphonenum">เบอร์โทรศัพท์</label>
+				     	<span class="required">*</span>
+				     	<input id="cphonenum" name="phonenum" type="text" size="25" class="required form_input_text" minlength="9" />
+				   	</p>
+					<p>
+						<a id="signupwithfb_button" href="#" class="aonz-fb-login-button"></a>
+					</p>
+				</fieldset>
+			</form>
 		<?php 
 	}
 	
 	/**
-	 * Empty area for adding student_register_modal later
+	 * Job List Modal
 	 */
 	function job_list_modal()
 	{
@@ -205,27 +211,14 @@ class AonzWeblyPlugin
 	}
 		
 	/**
-	 * Empty area for adding student_register_modal later
-	 */
-	function student_registration_empty_area()
-	{
-	?>
-		<div id="student_register_empty_area">
-			<div id="student_register_modal" style="display:none;width: 700px;height: 500px">
-			<!-- Form will be inserted here -->
-			</div>
-		</div>
-	<?php 	
-	}
-	
-	/**
-	 * Student registration
+	 * Student Registration Modal
 	 */
 	function student_registration_form_modal()
 	{
-		?>
-		<div id="student_register_modal_wrapper" style="display: none">
-			<form class="cmxform" id="student_register_form" method="post" action="" style="width: 700px;height: 500px;overflow-y: scroll;">
+	?>
+		<div id="student_register_modal" style="display:none;width: 700px;height: 500px">
+			<!-- Form will be inserted here -->
+			<form id="student_register_form" class="aonz_form_style" method="post" action="" style="width: 700px;height: 500px;overflow-y: scroll;">
 			 <p>
 			 	<a href="#" class="simplemodal-close modal-close-button"></a>
 			 </p>
@@ -245,9 +238,6 @@ class AonzWeblyPlugin
 			   <p>
 			     <label for="cemail">อีเมล์</label>
 			     <input id="cemail" name="email" size="25" type="text"  class="email form_input_text" />
-			   </p>
-			   <p>
-					
 			   </p>
 			   <p>
 			     <label for="clevel">ระดับชั้นผู้เรียน</label>
@@ -304,35 +294,44 @@ class AonzWeblyPlugin
 			   	<span class="required" style="display:block;">*โปรดกรอก "ตัวเลข" ที่ทำให้สมการข้างล่างถูกต้อง</span>
 			   	<?php do_action('aonz_study_regis_captcha');?>
 			   </p>
-			   <p>
-			   	 <input class="submit" type="submit" value="Submit"/>
-			   	 <input type="button" class="simplemodal-close" value="Cancel"/>
+			   <p class="submit" style="float:left">
+			   		<input id="submit_student_registration_button" type="button" value="Submit"/>
 			 	</p>
 			 </fieldset>
 			 </form>
 			 
-			 <form id="request_success" style="display:none">
-				<p class="title" align="center">ระบบได้รับแบบฟอร์มสมัครเรียนของท่านเรียบร้อยแล้ว<br />
+			 <form id="request_success" style="display:none;width: 700px;height: 200px">
+			 	<p>
+			 		<a href="#" class="simplemodal-close modal-close-button"></a>
+			 	</p>
+				<p class="title" align="center" style="padding: 50px 0 50px 0;">ระบบได้รับแบบฟอร์มสมัครเรียนของท่านเรียบร้อยแล้ว<br />
 				ทางทีมงานจะติดต่อกลับตามเบอร์โทรศัพท์ที่ท่านได้ระบุไว้อย่างเร็วที่สุด
 				</p>
-				<input type="button" class="simplemodal-close" value="Close"/>
+				<p class="submit" style="width:55%;margin: 0 auto">
+					<input type="button" class="simplemodal-close" value="Close"/>
+				</p>
 			</form>
-			<form id="request_fail" style="display:none">
-				<p class="title" align="center">
+			<form id="request_fail" style="display:none;width: 700px;height: 200px">
+				<p>
+			 		<a href="#" class="simplemodal-close modal-close-button"></a>
+			 	</p>
+				<p class="title" align="center" style="padding: 50px 0 50px 0;">
 				ข้อมูลที่กรอกไม่ถูกต้อง กรุณากรอกแบบฟอร์มใหม่อีกครั้ง<br />
 				ทางทีมงานขออภัยในความไม่สะดวก
 				</p>
-				<input type="button" class="simplemodal-close" value="Close"/>
+				<p class="submit" style="width:55%;margin: 0 auto">
+					<input type="button" class="simplemodal-close" value="Close"/>
+				</p>
 			</form>
 		</div>
-		<?php 
+	<?php 	
 	}
 	
 	function get_job_list_callback()
 	{
 		global $wpdb,$table_prefix;
 		
-		$jobrows = $wpdb->get_results( "SELECT * FROM ".$table_prefix."aonz_tutor_request" );
+		$jobrows = $wpdb->get_results( "SELECT * FROM ".$table_prefix."aonz_tutor_request"." ORDER BY id DESC" );
 		?>
 			<h3>รายการงานสอน</h3>
 			<table class="bordered" style="color:#464646;font-family:tahoma;font-size:13px">
@@ -381,6 +380,7 @@ class AonzWeblyPlugin
 			$location = esc_html($_POST['location']);
 			$other = esc_html($_POST['other']);
 			$rate = esc_html($_POST['rate']);
+			$add_date = date('Y-m-d H:i:s');
 			
 			//Insert to db
 			$result = $wpdb->insert(
@@ -395,7 +395,8 @@ class AonzWeblyPlugin
 							'detail' => $detail,
 							'location' => $location,
 							'other' => $other,
-							'hour_rate' => $rate
+							'hour_rate' => $rate,
+							'add_date'=>$add_date
 			));
 			if($result)
 				echo "success";

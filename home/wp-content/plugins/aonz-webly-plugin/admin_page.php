@@ -15,60 +15,81 @@ function aonz_webly_add_admin_page()
 function aonz_webly_admin_page()
 {
 	global $wpdb,$table_prefix;
-	$jobrows = $wpdb->get_results( "SELECT * FROM ".$table_prefix."aonz_tutor_request" );
+	$jobrows = $wpdb->get_results( "SELECT * FROM ".$table_prefix."aonz_tutor_request"." ORDER BY id DESC" );
 	?>
 <h3>Tutor Job Requests</h3>
 <form name="form_tutor_job_request" method="post" action="">
-	<table class="simple_rounded">
+	<table class="bordered">
 		<tr>
 			<th>ID</th>
 			<th>Name</th>
 			<th>Email</th>
 			<th>Phone</th>
-			<th>Level</th>
+			<th>ระดับชั้นนักเรีบน</th>
 			<th>Study Program</th>
-			<th>Student Number</th>
-			<th>Detail</th>
-			<th>Location</th>
-			<th>Other</th>
-			<th>Hour Rate</th>
-			<th>Fee</th>
-			<th>Assigned Tutor</th>
+			<th>จำนวนนักเรียน</th>
+			<th>รายละเอียดวิชา</th>
+			<th>สถานที่สอน</th>
+			<th>อื่น</th>
+			<th>ค่าสอน/ชม.</th>
+			<th>ค่าแนะนำ</th>
+			<th>เบอร์โทรติวเตอร์</th>
 			<th>Published</th>
-			<th>Publish Panel</th>
+			<th>Save</th>
+			<th>Post to Facebook and Send email</th>
 		</tr>
 		
 		<?php foreach($jobrows as $jobrow) : ?> 
 		<tr>
-			<td><?php echo $jobrow->id; ?></td>
-			<td><?php echo $jobrow->name;?></td>
-			<td><?php echo $jobrow->email; ?></td>
-			<td><?php echo $jobrow->phone; ?></td>
-			<td><?php echo getStudentLevelByLevelId($jobrow->level); ?></td>
-			<td><?php echo $jobrow->study_program; ?></td>
-			<td><?php echo $jobrow->student_number; ?></td>
-			<td><?php echo $jobrow->detail; ?></td>
-			<td><?php echo $jobrow->location; ?></td>
-			<td><?php echo $jobrow->other; ?></td>
-			<td><?php echo $jobrow->hour_rate; ?></td>
-			<td><?php echo $jobrow->fee; ?></td>
-			<td>
-				<p><?php echo $jobrow->assigned_tutor; ?></p>
-				<form id="form_assign_tutor_<?php echo $jobrow->id; ?>" method="post" action="">
-				<fieldset>
-					<legend>Enter tutor phone no.</legend>
+			<form id="form_assign_tutor_<?php echo $jobrow->id; ?>" method="post" action="">
+				<td><?php echo $jobrow->id; ?></td>
+				<td><?php echo $jobrow->name;?></td>
+				<td><?php echo $jobrow->email; ?></td>
+				<td><?php echo $jobrow->phone; ?></td>
+				<td><?php echo getStudentLevelByLevelId($jobrow->level); ?></td>
+				<td><?php echo $jobrow->study_program; ?></td>
+				<td>
+					<input type="text" name="student_num" size="5" value="<?php echo $jobrow->student_number; ?>">
+				</td>
+				<td>
+					<textarea name="detail" rows="7" cols="18">
+					<?php echo $jobrow->detail; ?>
+					</textarea>
+				</td>
+				<td>
+					<textarea name="location" rows="7" cols="18">
+					<?php echo $jobrow->location; ?>
+					</textarea>
+				</td>
+				<td>
+					<textarea name="other" rows="7" cols="18">
+						<?php echo $jobrow->other; ?>
+					</textarea>
+				</td>
+				<td>
 					<p>
-						<input type="text" name="tutor_phonenum">
+						<input type="text" name="hour_rate" size="15" value="<?php echo $jobrow->hour_rate; ?>">
+					</p>
+				</td>
+				<td>
+					<p>
+						<input type="text" name="fee" size="15" value="<?php echo $jobrow->fee; ?>">
+					</p>
+				</td>
+				<td>
+					<p>
+						<input type="text" name="tutor_phonenum" size="15" value="<?php echo $jobrow->assigned_tutor; ?>">
+					</p>
+				</td>
+				<td><?php echo intval($jobrow->published)==1?"Yes":"No"; ?></td>
+				<td>
+					<p>
 						<input type="hidden" name="assign_req_id" value="<?php echo $jobrow->id; ?>">
+						<input type="submit" value="Save" style="width:50px;">
 					</p>
-					<p>
-						<input type="submit" value="Assign">
-					</p>
-				</fieldset>
-				</form>
-			</td>
-			<td><?php echo intval($jobrow->published)==1?"Yes":"No"; ?></td>
-			<td><input type="button" value="Open" onclick="openPublishPanel(<?php echo $jobrow->id; ?>);"/></td>
+				</td>
+				<td><input type="button" value="Post Facebook" style="width:100px;" onclick="openPublishPanel(<?php echo $jobrow->id; ?>);"/></td>
+			</form>
 		</tr>
 		<tr style="display: none">
 			<td>
@@ -214,102 +235,93 @@ function aonz_webly_admin_styles()
 	.fb_dialog {z-index: 1900200 !important;}
 	
 	/* Rounded Table for job list */
-	table.simple_rounded a:link {
-		color: #666;
-		font-weight: bold;
-		text-decoration:none;
+	/* rounded border css3 */
+	table.bordered {
+	    *border-collapse: collapse; /* IE7 and lower */
+	    border-spacing: 0;
+	    width: 100%;    
 	}
-	table.simple_rounded a:visited {
-		color: #999999;
-		font-weight:bold;
-		text-decoration:none;
-	}
-	table.simple_rounded a:active,
-	table.simple_rounded a:hover {
-		color: #bd5a35;
-		text-decoration:underline;
-	}
-	table.simple_rounded {
-		font-family:Arial, Helvetica, sans-serif;
-		color:#666;
-		font-size:12px;
-		text-shadow: 1px 1px 0px #fff;
-		background:#eaebec;
-		margin:20px;
-		border:#ccc 1px solid;
 	
-		-moz-border-radius:3px;
-		-webkit-border-radius:3px;
-		border-radius:3px;
+	.bordered {
+	    border: solid #ccc 1px;
+	    -moz-border-radius: 6px;
+	    -webkit-border-radius: 6px;
+	    border-radius: 6px;
+	    -webkit-box-shadow: 0 1px 1px #ccc; 
+	    -moz-box-shadow: 0 1px 1px #ccc; 
+	    box-shadow: 0 1px 1px #ccc;         
+	}
 	
-		-moz-box-shadow: 0 1px 2px #d1d1d1;
-		-webkit-box-shadow: 0 1px 2px #d1d1d1;
-		box-shadow: 0 1px 2px #d1d1d1;
+	.bordered tr:hover {
+	    background: #fbf8e9;
+	    -o-transition: all 0.1s ease-in-out;
+	    -webkit-transition: all 0.1s ease-in-out;
+	    -moz-transition: all 0.1s ease-in-out;
+	    -ms-transition: all 0.1s ease-in-out;
+	    transition: all 0.1s ease-in-out;     
+	}    
+	    
+	.bordered td, .bordered th {
+	    border-left: 1px solid #ccc;
+	    border-top: 1px solid #ccc;
+	    padding: 10px;
+	    text-align: left;    
+	    max-width: 100px;
 	}
-	table.simple_rounded th {
-		padding:21px 25px 22px 25px;
-		border-top:1px solid #fafafa;
-		border-bottom:1px solid #e0e0e0;
 	
-		background: #ededed;
-		background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
-		background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
+	.bordered th {
+	    background-color: #dce9f9;
+	    background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+	    background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+	    background-image:    -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+	    background-image:     -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+	    background-image:      -o-linear-gradient(top, #ebf3fc, #dce9f9);
+	    background-image:         linear-gradient(top, #ebf3fc, #dce9f9);
+	    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
+	    -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
+	    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+	    border-top: none;
+	    text-shadow: 0 1px 0 rgba(255,255,255,.5); 
 	}
-	table.simple_rounded th:first-child {
-		text-align: left;
-		padding-left:20px;
+	
+	.bordered td:first-child, .bordered th:first-child {
+	    border-left: none;
 	}
-	table.simple_rounded tr:first-child th:first-child {
-		-moz-border-radius-topleft:3px;
-		-webkit-border-top-left-radius:3px;
-		border-top-left-radius:3px;
+	
+	.bordered th:first-child {
+	    -moz-border-radius: 6px 0 0 0;
+	    -webkit-border-radius: 6px 0 0 0;
+	    border-radius: 6px 0 0 0;
 	}
-	table.simple_rounded tr:first-child th:last-child {
-		-moz-border-radius-topright:3px;
-		-webkit-border-top-right-radius:3px;
-		border-top-right-radius:3px;
+	
+	.bordered th:last-child {
+	    -moz-border-radius: 0 6px 0 0;
+	    -webkit-border-radius: 0 6px 0 0;
+	    border-radius: 0 6px 0 0;
 	}
-	table.simple_rounded tr {
-		text-align: center;
-		padding-left:20px;
+	
+	.bordered th:only-child{
+	    -moz-border-radius: 6px 6px 0 0;
+	    -webkit-border-radius: 6px 6px 0 0;
+	    border-radius: 6px 6px 0 0;
 	}
-	table.simple_rounded td:first-child {
-		text-align: left;
-		padding-left:20px;
-		border-left: 0;
+	
+	.bordered tr:last-child td:first-child {
+	    -moz-border-radius: 0 0 0 6px;
+	    -webkit-border-radius: 0 0 0 6px;
+	    border-radius: 0 0 0 6px;
 	}
-	table.simple_rounded td {
-		padding:18px;
-		border-top: 1px solid #ffffff;
-		border-bottom:1px solid #e0e0e0;
-		border-left: 1px solid #e0e0e0;
-		
-		background: #fafafa;
-		background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
-		background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+	
+	.bordered tr:last-child td:last-child {
+	    -moz-border-radius: 0 0 6px 0;
+	    -webkit-border-radius: 0 0 6px 0;
+	    border-radius: 0 0 6px 0;
 	}
-	table.simple_rounded tr.even td {
-		background: #f6f6f6;
-		background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
-		background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
-	}
-	table.simple_rounded tr:last-child td {
-		border-bottom:0;
-	}
-	table.simple_rounded tr:last-child td:first-child {
-		-moz-border-radius-bottomleft:3px;
-		-webkit-border-bottom-left-radius:3px;
-		border-bottom-left-radius:3px;
-	}
-	table.simple_rounded tr:last-child td:last-child {
-		-moz-border-radius-bottomright:3px;
-		-webkit-border-bottom-right-radius:3px;
-		border-bottom-right-radius:3px;
-	}
-	table.simple_rounded tr:hover td {
-		background: #f2f2f2;
-		background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
-		background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
+	
+	tr.disable
+	{
+		color:grey;
+		text-decoration: line-through;
 	}
 	
 	/* Editable Job Detail */
